@@ -1,6 +1,13 @@
+# Generated files
+bin/
+gen/
+out/
+
 # Gradle files
 .gradle/
 build/
+app/build/
+library/build/
 
 # Local configuration file (sdk path, etc)
 local.properties
@@ -32,3 +39,10 @@ google-services.json
 
 # Android Profiling
 *.hprof
+
+# lint
+lint/intermediates/
+lint/generated/
+lint/outputs/
+lint/tmp/
+lint/reports/
