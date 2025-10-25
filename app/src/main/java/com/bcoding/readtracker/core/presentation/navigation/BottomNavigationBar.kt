@@ -1,4 +1,4 @@
-package com.bcoding.readtracker.core.navigation
+package com.bcoding.readtracker.core.presentation.navigation
 
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
-import com.bcoding.readtracker.core.navigation.BottomNavItem.*
+import com.bcoding.readtracker.core.presentation.navigation.BottomNavItem.*
 import com.bcoding.readtracker.core.presentation.theme.dimensions
 
 @Composable

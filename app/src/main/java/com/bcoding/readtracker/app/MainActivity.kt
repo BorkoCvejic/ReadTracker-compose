@@ -1,4 +1,4 @@
-package com.bcoding.readtracker
+package com.bcoding.readtracker.app
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -9,9 +9,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
-import com.bcoding.readtracker.core.navigation.BottomNavigationBar
-import com.bcoding.readtracker.core.navigation.MainNavHost
-import com.bcoding.readtracker.core.navigation.shouldShowBottomBar
+import com.bcoding.readtracker.core.presentation.navigation.BottomNavigationBar
+import com.bcoding.readtracker.core.presentation.navigation.MainNavHost
+import com.bcoding.readtracker.core.presentation.navigation.shouldShowBottomBar
 import com.bcoding.readtracker.core.presentation.theme.ReadTrackerTheme
 
 class MainActivity : ComponentActivity() {
