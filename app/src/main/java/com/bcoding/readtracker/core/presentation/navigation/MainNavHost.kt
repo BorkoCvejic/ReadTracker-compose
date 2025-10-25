@@ -1,12 +1,10 @@
-package com.bcoding.readtracker.core.navigation
+package com.bcoding.readtracker.core.presentation.navigation
 
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import com.bcoding.readtracker.core.navigation.Routes.*
+import com.bcoding.readtracker.core.presentation.navigation.Routes.*
 
 @Composable
 fun MainNavHost(
@@ -20,9 +18,6 @@ fun MainNavHost(
         homeNavGraph(modifier, showDetails = { navController.navigate(BookDetails) })
         progressTrackerGraph(modifier)
         favoritesGraph(modifier)
-
-        composable<BookDetails> {
-            Text(modifier = modifier, text = "book details")
-        }
+        sharedGraph(modifier)
     }
 }

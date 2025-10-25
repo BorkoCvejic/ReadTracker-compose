@@ -1,14 +1,14 @@
-package com.bcoding.readtracker.core.navigation
+package com.bcoding.readtracker.core.presentation.navigation
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import com.bcoding.readtracker.core.navigation.Routes.*
+import com.bcoding.readtracker.book.presentation.home.HomeScreenRoot
+import com.bcoding.readtracker.book.presentation.home.HomeViewModel
+import com.bcoding.readtracker.core.presentation.navigation.Routes.*
+import org.koin.androidx.compose.koinViewModel
 
 fun NavGraphBuilder.homeNavGraph(
     modifier: Modifier,
@@ -18,14 +18,12 @@ fun NavGraphBuilder.homeNavGraph(
         startDestination = Home
     ) {
         composable<Home> {
-            Column(
-                modifier = modifier.padding()
-            ) {
-                Text(text = "home")
-                Button(onClick = { showDetails() }) { 
-                    Text("go to details") 
-                }
-            }
+            val homeViewModel = koinViewModel<HomeViewModel>()
+            HomeScreenRoot(
+                modifier = modifier,
+                homeViewModel = homeViewModel,
+                showDetails = { showDetails() }
+            )
         }
     }
 }
@@ -47,5 +45,11 @@ fun NavGraphBuilder.favoritesGraph(modifier: Modifier) {
         composable<Favorites> {
             Text(modifier = modifier, text = "Favorites")
         }
+    }
+}
+
+fun NavGraphBuilder.sharedGraph(modifier: Modifier) {
+    composable<BookDetails> {
+        Text(modifier = modifier, text = "book details")
     }
 }

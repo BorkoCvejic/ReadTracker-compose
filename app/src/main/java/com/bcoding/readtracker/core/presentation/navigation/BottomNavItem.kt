@@ -1,7 +1,7 @@
-package com.bcoding.readtracker.core.navigation
+package com.bcoding.readtracker.core.presentation.navigation
 
 import com.bcoding.readtracker.R
-import com.bcoding.readtracker.core.navigation.Routes.*
+import com.bcoding.readtracker.core.presentation.navigation.Routes.*
 import kotlinx.serialization.Serializable
 
 @Serializable

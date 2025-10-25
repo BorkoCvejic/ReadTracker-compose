@@ -1,4 +1,4 @@
-package com.bcoding.readtracker.core.navigation
+package com.bcoding.readtracker.core.presentation.navigation
 
 import kotlinx.serialization.Serializable
 

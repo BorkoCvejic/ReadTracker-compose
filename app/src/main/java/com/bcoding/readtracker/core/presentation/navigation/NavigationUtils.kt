@@ -1,4 +1,4 @@
-package com.bcoding.readtracker.core.navigation
+package com.bcoding.readtracker.core.presentation.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
