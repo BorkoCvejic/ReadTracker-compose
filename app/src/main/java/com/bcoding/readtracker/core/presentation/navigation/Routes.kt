@@ -4,11 +4,11 @@ import kotlinx.serialization.Serializable
 
 sealed class Routes {
 
-    // Home
+    // Search
     @Serializable
-    object HomeGraph: Routes()
+    object SearchGraph: Routes()
     @Serializable
-    object Home: Routes()
+    object Search: Routes()
 
     // Progress tracker
     @Serializable
@@ -24,5 +24,5 @@ sealed class Routes {
 
     // Shared routes
     @Serializable
-    object BookDetails: Routes()
+    data class BookDetails(val bookId: String): Routes()
 }

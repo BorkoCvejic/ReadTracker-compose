@@ -16,7 +16,7 @@ private fun NavController.isOnAnyRoute(vararg routes: Routes): Boolean {
 
 @Composable
 fun NavController.shouldShowBottomBar(): Boolean {
-    return isOnAnyRoute(Routes.Home, Routes.ProgressTracker, Routes.Favorites)
+    return isOnAnyRoute(Routes.Search, Routes.ProgressTracker, Routes.Favorites)
 }
 
 @Composable

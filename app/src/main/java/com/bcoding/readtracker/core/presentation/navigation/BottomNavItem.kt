@@ -11,10 +11,10 @@ sealed class BottomNavItem<T>(
     val route: T
 ) {
     @Serializable
-    data object HomeNavItem: BottomNavItem<HomeGraph>(
-        name = "Home",
+    data object SearchNavItem: BottomNavItem<SearchGraph>(
+        name = "Search",
         icon = R.drawable.ic_search,
-        route = HomeGraph
+        route = SearchGraph
     )
 
     @Serializable

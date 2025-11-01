@@ -13,7 +13,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import com.bcoding.readtracker.core.presentation.navigation.BottomNavItem.*
-import com.bcoding.readtracker.core.presentation.theme.dimensions
+import com.bcoding.readtracker.core.presentation.theme.appDimensions
 
 @Composable
 fun BottomNavigationBar(
@@ -21,7 +21,7 @@ fun BottomNavigationBar(
 ) {
     val bottomNavigationItems =
         listOf(
-            HomeNavItem,
+            SearchNavItem,
             ProgressTrackerNavItem,
             FavoritesNavItem,
         )
@@ -33,17 +33,22 @@ fun BottomNavigationBar(
             NavigationBarItem(
                 icon = {
                     Icon(
-                        modifier = Modifier.size(MaterialTheme.dimensions.bottomNavIcon),
+                        modifier = Modifier.size(MaterialTheme.appDimensions.bottomNavIcon),
                         painter = painterResource(id = item.icon),
                         contentDescription = item.name,
                         tint = if (isSelected) {
                             LocalContentColor.current
                         } else {
-                            LocalContentColor.current.copy(alpha = MaterialTheme.dimensions.bottomNavIconAlpha)
+                            LocalContentColor.current.copy(alpha = MaterialTheme.appDimensions.bottomNavIconAlpha)
                         }
                     )
                 },
-                label = { Text(item.name) },
+                label = {
+                    Text(
+                        text = item.name,
+                        style = MaterialTheme.typography.labelLarge
+                    )
+                },
                 selected = isSelected,
                 onClick = {
                     navController.navigate(item.route) {
@@ -53,7 +58,7 @@ fun BottomNavigationBar(
                         launchSingleTop = true
                         restoreState = true
                     }
-                }
+                },
             )
         }
     }

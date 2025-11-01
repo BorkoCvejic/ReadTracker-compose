@@ -13,11 +13,14 @@ fun MainNavHost(
 ) {
     NavHost(
         navController = navController,
-        startDestination = HomeGraph
+        startDestination = SearchGraph
     ) {
-        homeNavGraph(modifier, showDetails = { navController.navigate(BookDetails) })
-        progressTrackerGraph(modifier)
-        favoritesGraph(modifier)
-        sharedGraph(modifier)
+        searchNavGraph(
+            modifier = modifier,
+            showDetails = { bookId -> navController.navigate(BookDetails(bookId)) }
+        )
+        progressTrackerGraph(modifier = modifier)
+        favoritesGraph(modifier = modifier)
+        sharedGraph(modifier = modifier)
     }
 }
