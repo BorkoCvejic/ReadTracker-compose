@@ -5,24 +5,25 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import com.bcoding.readtracker.book.presentation.home.HomeScreenRoot
-import com.bcoding.readtracker.book.presentation.home.HomeViewModel
+import androidx.navigation.toRoute
+import com.bcoding.readtracker.book.presentation.search.SearchScreenRoot
+import com.bcoding.readtracker.book.presentation.search.SearchViewModel
 import com.bcoding.readtracker.core.presentation.navigation.Routes.*
 import org.koin.androidx.compose.koinViewModel
 
-fun NavGraphBuilder.homeNavGraph(
+fun NavGraphBuilder.searchNavGraph(
     modifier: Modifier,
-    showDetails: () -> Unit
+    showDetails: (String) -> Unit
 ) {
-    navigation<HomeGraph>(
-        startDestination = Home
+    navigation<SearchGraph>(
+        startDestination = Search
     ) {
-        composable<Home> {
-            val homeViewModel = koinViewModel<HomeViewModel>()
-            HomeScreenRoot(
+        composable<Search> {
+            val searchViewModel = koinViewModel<SearchViewModel>()
+            SearchScreenRoot(
                 modifier = modifier,
-                homeViewModel = homeViewModel,
-                showDetails = { showDetails() }
+                searchViewModel = searchViewModel,
+                showDetails = { bookId -> showDetails(bookId) }
             )
         }
     }
@@ -49,7 +50,8 @@ fun NavGraphBuilder.favoritesGraph(modifier: Modifier) {
 }
 
 fun NavGraphBuilder.sharedGraph(modifier: Modifier) {
-    composable<BookDetails> {
-        Text(modifier = modifier, text = "book details")
+    composable<BookDetails> { navStackEntry ->
+        val bookId = navStackEntry.toRoute<BookDetails>().bookId
+        Text(modifier = modifier, text = bookId)
     }
 }

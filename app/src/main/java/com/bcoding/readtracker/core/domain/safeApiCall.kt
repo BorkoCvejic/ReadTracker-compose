@@ -1,8 +1,7 @@
 package com.bcoding.readtracker.core.domain
 
-import android.util.Log
-import com.bcoding.readtracker.BuildConfig
 import com.bcoding.readtracker.core.data.ApiErrorResponse
+import com.bcoding.readtracker.core.presentation.DebugLog
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
 import okio.IOException
@@ -25,9 +24,7 @@ suspend fun <T> safeApiCall(
             null
         }
         val apiErrorMessage = body?.let { errorBody ->
-            if (BuildConfig.DEBUG) {
-                Log.e("safeApiCall", errorBody)
-            }
+            DebugLog.log("safeApiCall", errorBody, e)
             try {
                 val apiError = Json.decodeFromString<ApiErrorResponse>(errorBody)
                 apiError.title ?: apiError.detail
@@ -55,9 +52,7 @@ suspend fun <T> safeApiCall(
 
         Outcome.Error(error)
     } catch (e: IOException) {
-        if (BuildConfig.DEBUG) {
-            Log.e("safeApiCall", "IO error: ${e.message}")
-        }
+        DebugLog.log("safeApiCall", "IO error: ${e.message}", e)
 
         val error = when (e) {
             is UnknownHostException,
@@ -69,14 +64,10 @@ suspend fun <T> safeApiCall(
 
         Outcome.Error(error)
     } catch (e: SerializationException) {
-        if (BuildConfig.DEBUG) {
-            Log.e("safeApiCall", "Serialization error: ${e.message}")
-        }
+        DebugLog.log("safeApiCall", "Serialization error: ${e.message}", e)
         Outcome.Error(DataError.Remote.SERIALIZATION)
     } catch (e: Exception) {
-        if (BuildConfig.DEBUG) {
-            Log.e("safeApiCall", "Error: ${e.message}")
-        }
+        DebugLog.log("safeApiCall", "Error: ${e.message}", e)
         Outcome.Error(DataError.Remote.UNKNOWN)
     }
 }

@@ -8,36 +8,78 @@ import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.runtime.CompositionLocalProvider
-
-private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
-)
+import androidx.compose.ui.platform.LocalContext
+import com.bcoding.readtracker.core.presentation.theme.AppColors.BlueNavy
+import com.bcoding.readtracker.core.presentation.theme.AppColors.BlueSoft
+import com.bcoding.readtracker.core.presentation.theme.AppColors.BlueSoftLight
+import com.bcoding.readtracker.core.presentation.theme.AppColors.GreyBlue
+import com.bcoding.readtracker.core.presentation.theme.AppColors.GreyBlueLight
+import com.bcoding.readtracker.core.presentation.theme.AppColors.GreyCharcoal
+import com.bcoding.readtracker.core.presentation.theme.AppColors.GreyDark
+import com.bcoding.readtracker.core.presentation.theme.AppColors.GreyDividerDark
+import com.bcoding.readtracker.core.presentation.theme.AppColors.GreyDividerLight
+import com.bcoding.readtracker.core.presentation.theme.AppColors.GreyLilac
+import com.bcoding.readtracker.core.presentation.theme.AppColors.GreyMauve
+import com.bcoding.readtracker.core.presentation.theme.AppColors.GreyMedium
+import com.bcoding.readtracker.core.presentation.theme.AppColors.GreyNeutral
+import com.bcoding.readtracker.core.presentation.theme.AppColors.GreySlate
+import com.bcoding.readtracker.core.presentation.theme.AppColors.GreyVeryDark
+import com.bcoding.readtracker.core.presentation.theme.AppColors.GreyVeryLight
+import com.bcoding.readtracker.core.presentation.theme.AppColors.PinkError
+import com.bcoding.readtracker.core.presentation.theme.AppColors.RedError
+import com.bcoding.readtracker.core.presentation.theme.AppColors.WarmAccentContainerLight
+import com.bcoding.readtracker.core.presentation.theme.AppColors.WarmAccentDark
+import com.bcoding.readtracker.core.presentation.theme.AppColors.WarmBackground
+import com.bcoding.readtracker.core.presentation.theme.AppColors.WarmContainerDark
+import com.bcoding.readtracker.core.presentation.theme.AppColors.WarmContainerLight
+import com.bcoding.readtracker.core.presentation.theme.AppColors.WarmSurface
+import com.bcoding.readtracker.core.presentation.theme.AppColors.WarmSurfaceDark
+import com.bcoding.readtracker.core.presentation.theme.AppColors.WarmSurfaceVariant
+import com.bcoding.readtracker.core.presentation.theme.AppColors.White
 
 private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
+    primary = BlueSoft,
+    onPrimary = White,
+    secondary = GreyBlue,
+    onSecondary = White,
+    background = WarmBackground,
+    onBackground = GreyVeryDark,
+    surface = WarmSurface,
+    onSurface = GreyVeryDark,
+    surfaceVariant = WarmSurfaceVariant,
+    onSurfaceVariant = GreyNeutral,
+    surfaceContainer = WarmContainerLight,
+    secondaryContainer = WarmAccentContainerLight,
+    onSecondaryContainer = BlueSoft,
+    outline = GreyMedium,
+    outlineVariant = GreyDividerLight,
+    error = RedError,
+)
 
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
+private val DarkColorScheme = darkColorScheme(
+    primary = BlueSoftLight,
+    onPrimary = BlueNavy,
+    secondary = GreyBlueLight,
+    onSecondary = GreyDark,
+    background = WarmSurfaceDark,
+    onBackground = GreyVeryLight,
+    surface = GreyCharcoal,
+    onSurface = GreyVeryLight,
+    surfaceVariant = GreySlate,
+    onSurfaceVariant = GreyLilac,
+    surfaceContainer = WarmContainerDark,
+    secondaryContainer = WarmAccentDark,
+    onSecondaryContainer = BlueSoftLight,
+    outline = GreyMauve,
+    outlineVariant = GreyDividerDark,
+    error = PinkError
 )
 
 @Composable
 fun ReadTrackerTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
+    dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {
@@ -50,14 +92,15 @@ fun ReadTrackerTheme(
         else -> LightColorScheme
     }
 
-    val dimensions = Dimensions()
+    val appDimensions = AppDimensions()
 
     CompositionLocalProvider(
-        LocalDimensions provides dimensions
+        LocalAppDimensions provides appDimensions
     ) {
         MaterialTheme(
             colorScheme = colorScheme,
-            typography = Typography,
+            typography = AppTypography.ReadTrackerTypography,
+            shapes = AppShapes.materialShapes,
             content = content
         )
     }
