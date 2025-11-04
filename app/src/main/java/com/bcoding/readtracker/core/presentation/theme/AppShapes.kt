@@ -5,8 +5,10 @@ import androidx.compose.ui.unit.dp
 
 object AppShapes {
     val roundedCornerMedium = RoundedCornerShape(16.dp)
+    val roundedCornerSmall = RoundedCornerShape(8.dp)
 
     val materialShapes = androidx.compose.material3.Shapes(
         medium = roundedCornerMedium,
+        small = roundedCornerSmall
     )
 }

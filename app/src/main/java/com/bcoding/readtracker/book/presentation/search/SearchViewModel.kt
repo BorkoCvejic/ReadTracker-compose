@@ -51,7 +51,7 @@ class SearchViewModel(
             }
             is SearchScreenActions.OnBookClick -> {
                 viewModelScope.launch {
-                    _events.emit(SearchScreenUiEvents.NavigateToBookDetails(action.bookId))
+                    _events.emit(SearchScreenUiEvents.NavigateToBookDetails(action.book))
                 }
             }
         }

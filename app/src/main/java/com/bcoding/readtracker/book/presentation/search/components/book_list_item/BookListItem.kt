@@ -52,7 +52,7 @@ fun BookListItem(
             containerColor = MaterialTheme.colorScheme.background
         ),
         onClick = {
-            onAction(SearchScreenActions.OnBookClick(book.id))
+            onAction(SearchScreenActions.OnBookClick(book = book))
         }
     ) {
         Row(

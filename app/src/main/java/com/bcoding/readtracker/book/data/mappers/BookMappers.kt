@@ -12,7 +12,7 @@ fun SearchedBookDto.toBook(): Book {
             ?: coverAlternativeKey?.let { coverAltKeyArg -> COVER_URL.format(coverAltKeyArg) }
             ?: "",
         authors = authorNames ?: emptyList(),
-        description = null,
+        description = "",
         languages = languages ?: emptyList(),
         firstPublishedYear = firstPublishYear.toString(),
         ratingAverage = ratingAverage,

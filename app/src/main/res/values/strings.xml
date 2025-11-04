@@ -9,10 +9,13 @@
     <!-- Book details screen -->
     <string name="book_details_screen_languages">Languages</string>
     <string name="book_details_screen_synopsis">Synopsis</string>
+    <string name="book_details_screen_first_published_year">First published year</string>
+    <string name="book_details_screen_number_of_pages">Number of pages</string>
     <string name="book_details_screen_mark_as_favorite">Mark as favorite</string>
     <string name="book_details_screen_remove_from_favorites">Remove from favorites</string>
-    <string name="book_details_screen_description_unavailable">Description not available.</string>
+    <string name="book_details_screen_description_unavailable">There is no description available for this book.</string>
     <string name="book_details_screen_go_back">Go back</string>
+    <string name="book_details_screen_error_loading">Error with loading a book details</string>
 
     <!-- Shared book strings -->
     <string name="book_rating">Rating</string>
