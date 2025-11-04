@@ -105,7 +105,7 @@ fun ReadTrackerSearchBar(
     uiMode = Configuration.UI_MODE_NIGHT_YES
 )
 @Composable
-private fun ReadTrackerSearchBarPreviewGroup(
+private fun ReadTrackerSearchBarPreview(
     @PreviewParameter(SearchBarQueryProvider::class) queryStatePreview: SearchQueryStatePreview
 ) {
     ReadTrackerTheme {

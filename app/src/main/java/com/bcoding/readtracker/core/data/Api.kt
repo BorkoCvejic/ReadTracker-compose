@@ -1,7 +1,9 @@
 package com.bcoding.readtracker.core.data
 
+import com.bcoding.readtracker.book.data.dto.BookWorkDto
 import com.bcoding.readtracker.book.data.dto.SearchResponseDto
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface Api {
@@ -16,4 +18,9 @@ interface Api {
         @Query("lang") lang: String = DEFAULT_SEARCH_LANG,
         @Query("fields") fields: String = SEARCH_FIELDS
     ): SearchResponseDto
+
+    @GET("/works/{bookId}.json")
+    suspend fun getBookDescription(
+        @Path("bookId") bookId: String
+    ): BookWorkDto
 }

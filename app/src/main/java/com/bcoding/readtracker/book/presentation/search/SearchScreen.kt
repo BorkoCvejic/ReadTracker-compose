@@ -39,20 +39,20 @@ import com.bcoding.readtracker.core.presentation.theme.appDimensions
 fun SearchScreenRoot(
     modifier: Modifier,
     searchViewModel: SearchViewModel,
-    showDetails: (String) -> Unit
+    showDetails: (Book) -> Unit
 ) {
     val searchScreenState by searchViewModel.state.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
         searchViewModel.events.collect { events ->
             when (events) {
-                is SearchScreenUiEvents.NavigateToBookDetails -> showDetails(events.bookId)
+                is SearchScreenUiEvents.NavigateToBookDetails -> { showDetails(events.book) }
             }
         }
     }
 
     SearchScreen(
-        modifier,
+        modifier = modifier,
         isLoading = searchScreenState.isLoading,
         error = searchScreenState.error,
         books = searchScreenState.books,
@@ -104,12 +104,12 @@ fun SearchScreen(
                     isLoading -> PulseAnimation()
                     error != null -> Text(
                         text = error.asString(),
-                        style = MaterialTheme.typography.bodyLarge,
+                        style = MaterialTheme.typography.titleMedium,
                         textAlign = TextAlign.Center
                     )
                     books.isEmpty() -> Text(
                         text = stringResource(R.string.search_screen_no_search_results),
-                        style = MaterialTheme.typography.bodyLarge,
+                        style = MaterialTheme.typography.titleMedium,
                         textAlign = TextAlign.Center
                     )
                     else -> {
@@ -154,7 +154,7 @@ fun SearchScreen(
     uiMode = Configuration.UI_MODE_NIGHT_YES
 )
 @Composable
-private fun SearchScreenPreviewGroup(
+private fun SearchScreenPreview(
     @PreviewParameter(SearchScreenPreviewProvider::class) statePreview: SearchScreenStatePreview,
 ) {
     ReadTrackerTheme {

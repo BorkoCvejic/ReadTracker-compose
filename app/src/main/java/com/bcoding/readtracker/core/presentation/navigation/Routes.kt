@@ -24,5 +24,5 @@ sealed class Routes {
 
     // Shared routes
     @Serializable
-    data class BookDetails(val bookId: String): Routes()
+    object BookDetails: Routes()
 }

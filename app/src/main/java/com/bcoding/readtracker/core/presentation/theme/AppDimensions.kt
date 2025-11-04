@@ -11,9 +11,11 @@ data class AppDimensions(
     val dimen2: Dp = 2.dp,
     val dimen4: Dp = 4.dp,
     val dimen8: Dp = 8.dp,
+    val dimen12: Dp = 12.dp,
     val dimen16: Dp = 16.dp,
     val dimen24: Dp = 24.dp,
     val dimen32: Dp = 32.dp,
+    val dimen48: Dp = 48.dp,
     val dimen60: Dp = 60.dp,
     val dimen100: Dp = 100.dp,
     val dimen140: Dp = 140.dp,
@@ -28,6 +30,13 @@ data class AppDimensions(
 
     val loadingWidth: Dp = 5.dp,
     val loadingSize: Dp = 40.dp,
+
+    val imageBlur: Dp = 50.dp,
+
+    val elevatedImageCardHeight: Dp = 250.dp,
+    val defaultElevation: Dp = 4.dp,
+
+    val expandableIconSize: Dp = 20.dp
 )
 
 val LocalAppDimensions = compositionLocalOf { AppDimensions() }
