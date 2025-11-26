@@ -32,7 +32,6 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
-import androidx.compose.ui.unit.dp
 import com.bcoding.readtracker.R
 import com.bcoding.readtracker.book.presentation.book_details.components.titled_content.TitledContentAnimations.DEFAULT_ANIMATION_DURATION
 import com.bcoding.readtracker.core.presentation.theme.ReadTrackerTheme

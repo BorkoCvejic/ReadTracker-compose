@@ -1,6 +1,7 @@
 package com.bcoding.readtracker.book.presentation.book_details
 
 import android.content.res.Configuration
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -24,6 +25,9 @@ import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -33,6 +37,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.bcoding.readtracker.R
 import com.bcoding.readtracker.book.domain.model.Book
+import com.bcoding.readtracker.book.presentation.book_details.components.add_to_list_dialog.AddToReadingListDialog
 import com.bcoding.readtracker.book.presentation.book_details.components.blurred_image_background.BlurredImageBackground
 import com.bcoding.readtracker.book.presentation.book_details.components.book_chip.BookChip
 import com.bcoding.readtracker.book.presentation.book_details.components.titled_content.TitledContent
@@ -48,13 +53,42 @@ fun BookDetailsScreenRoot(
     navigateUp: () -> Unit
 ) {
     val state by bookDetailsViewModel.state.collectAsStateWithLifecycle()
+    var dialogBook by remember { mutableStateOf<Book?>(null) }
 
     LaunchedEffect(Unit) {
         bookDetailsViewModel.events.collect { event ->
             when (event) {
                 BookDetailsUiEvents.NavigateBack -> { navigateUp() }
+                is BookDetailsUiEvents.ShowAddToListDialog -> {
+                    dialogBook = event.book
+                }
             }
         }
+    }
+
+    dialogBook?.let { book ->
+        AddToReadingListDialog(
+            readingListOverviews = state.availableReadingLists,
+            existingReadingListNames = state.existingReadingListNames,
+            selectedReadingListIds = state.selectedListIds,
+            onCreateNewList = { readingListName ->
+                bookDetailsViewModel.onAction(
+                    BookDetailsScreenActions.OnCreateNewReadingListClick(
+                        readingListName = readingListName
+                    )
+                )
+            },
+            onDismiss = { dialogBook = null },
+            onAddToLists = { selectedLists ->
+                bookDetailsViewModel.onAction(
+                    BookDetailsScreenActions.OnSaveBookToReadingListsClick(
+                        book = book,
+                        selectedReadingLists = selectedLists
+                    )
+                )
+                dialogBook = null
+            }
+        )
     }
 
     BookDetailsScreen(
@@ -101,17 +135,16 @@ fun BookDetailsScreen(
                             style = MaterialTheme.typography.headlineSmall
                         )
                     }
-                    BookChip(
+                    Icon(
                         modifier = Modifier
-                            .weight(0.15f)
-                    ) {
-                        Icon(
-                            painter = painterResource(
-                                R.drawable.ic_favorite
-                            ),
-                            contentDescription = stringResource(R.string.favorites_screen_title) // todo change to if once "favorite" is implemented
-                        )
-                    }
+                            .padding(vertical = MaterialTheme.appDimensions.dimen8)
+                            .clickable { onAction(BookDetailsScreenActions.OnAddToReadingListClick) },
+                        painter = painterResource(
+                            R.drawable.ic_bookmark
+                        ),
+                        contentDescription = stringResource(R.string.book_details_screen_content_desc_add_book_to_list),
+                        tint = MaterialTheme.colorScheme.primary
+                    )
                 }
                 HorizontalDivider(
                     modifier = Modifier
@@ -154,7 +187,7 @@ fun BookDetailsScreen(
                 Spacer(modifier = Modifier.height(MaterialTheme.appDimensions.dimen8))
                 book.firstPublishedYear?.let { year ->
                     TitledContent(
-                        title = stringResource(R.string.book_details_screen_first_published_year)
+                        title = stringResource(R.string.book_details_screen_label_first_published_year)
                     ) {
                         BookChip {
                             Text(
@@ -167,7 +200,7 @@ fun BookDetailsScreen(
                 Spacer(modifier = Modifier.height(MaterialTheme.appDimensions.dimen8))
                 book.numPages?.let { numOfPages ->
                     TitledContent(
-                        title = stringResource(R.string.book_details_screen_number_of_pages)
+                        title = stringResource(R.string.book_details_screen_label_number_of_pages)
                     ) {
                         BookChip {
                             Text(
@@ -180,7 +213,7 @@ fun BookDetailsScreen(
                 Spacer(modifier = Modifier.height(MaterialTheme.appDimensions.dimen8))
                 if (book.languages.isNotEmpty())
                     TitledContent(
-                        title = stringResource(R.string.book_details_screen_languages),
+                        title = stringResource(R.string.book_details_screen_label_languages),
                         isExpandable = true,
                         isInitiallyExpanded = false
                     ) {
@@ -203,7 +236,7 @@ fun BookDetailsScreen(
                     modifier = Modifier.fillMaxSize()
                 ) {
                     TitledContent(
-                        title = stringResource(R.string.book_details_screen_synopsis),
+                        title = stringResource(R.string.book_details_screen_label_synopsis),
                     ) {
                         when {
                             isLoadingDescription ->
@@ -218,7 +251,7 @@ fun BookDetailsScreen(
                                 style = MaterialTheme.typography.bodySmall
                             )
                             book.description.isEmpty() -> Text(
-                                text = stringResource(R.string.book_details_screen_description_unavailable),
+                                text = stringResource(R.string.book_details_screen_message_description_unavailable),
                                 style = MaterialTheme.typography.bodySmall
                             )
                             else -> {

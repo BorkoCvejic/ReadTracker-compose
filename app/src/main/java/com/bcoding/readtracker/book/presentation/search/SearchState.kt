@@ -7,5 +7,5 @@ data class SearchState(
     val isLoading: Boolean = false,
     val error: UiText? = null,
     val books: List<Book> = emptyList(),
-    val searchQuery: String = "Harry Potter"
+    val searchQuery: String = ""
 )

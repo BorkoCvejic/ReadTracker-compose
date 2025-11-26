@@ -5,5 +5,5 @@ import com.bcoding.readtracker.book.domain.repository.BookRepository
 import org.koin.dsl.module
 
 val repositoryModule = module {
-    single<BookRepository> { BookRepositoryImpl(get()) }
+    single<BookRepository> { BookRepositoryImpl(get(), get()) }
 }

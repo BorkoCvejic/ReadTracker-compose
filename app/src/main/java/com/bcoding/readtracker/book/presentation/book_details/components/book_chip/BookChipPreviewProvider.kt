@@ -17,7 +17,7 @@ class BookChipPreviewProvider: PreviewParameterProvider<BookChipStatePreview> {
             displayName = "String Content"
         ),
         BookChipStatePreview(
-            drawableContent = R.drawable.ic_favorite,
+            drawableContent = R.drawable.ic_bookmark,
             displayName = "Drawable Content"
         )
     )

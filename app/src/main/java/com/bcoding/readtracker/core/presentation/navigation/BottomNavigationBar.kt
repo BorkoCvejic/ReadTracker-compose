@@ -1,5 +1,6 @@
 package com.bcoding.readtracker.core.presentation.navigation
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalContentColor
@@ -10,9 +11,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
+import androidx.navigation.compose.rememberNavController
 import com.bcoding.readtracker.core.presentation.navigation.BottomNavItem.*
+import com.bcoding.readtracker.core.presentation.theme.ReadTrackerTheme
 import com.bcoding.readtracker.core.presentation.theme.appDimensions
 
 @Composable
@@ -22,20 +27,19 @@ fun BottomNavigationBar(
     val bottomNavigationItems =
         listOf(
             SearchNavItem,
-            ProgressTrackerNavItem,
-            FavoritesNavItem,
+            LibraryNavItem,
         )
 
     NavigationBar {
-        bottomNavigationItems.forEach { item ->
-            val isSelected = navController.isBottomNavItemSelected(item.route)
+        bottomNavigationItems.forEach { bottomNavItem ->
+            val isSelected = navController.isBottomNavItemSelected(bottomNavItem.route)
 
             NavigationBarItem(
                 icon = {
                     Icon(
                         modifier = Modifier.size(MaterialTheme.appDimensions.bottomNavIcon),
-                        painter = painterResource(id = item.icon),
-                        contentDescription = item.name,
+                        painter = painterResource(id = bottomNavItem.icon),
+                        contentDescription = stringResource(bottomNavItem.name),
                         tint = if (isSelected) {
                             LocalContentColor.current
                         } else {
@@ -45,13 +49,13 @@ fun BottomNavigationBar(
                 },
                 label = {
                     Text(
-                        text = item.name,
+                        text = stringResource(bottomNavItem.name),
                         style = MaterialTheme.typography.labelLarge
                     )
                 },
                 selected = isSelected,
                 onClick = {
-                    navController.navigate(item.route) {
+                    navController.navigate(bottomNavItem.route) {
                         popUpTo(navController.graph.findStartDestination().id) {
                             saveState = true
                         }
@@ -61,5 +65,25 @@ fun BottomNavigationBar(
                 },
             )
         }
+    }
+}
+
+@Preview(
+    name = "Light mode",
+    showBackground = true,
+    backgroundColor = 0xFFFFFBFE
+)
+@Preview(
+    name = "Dark mode",
+    showBackground = true,
+    backgroundColor = 0xFF121212,
+    uiMode = Configuration.UI_MODE_NIGHT_YES
+)
+@Composable
+fun BottomNavigationBarPreview() {
+    ReadTrackerTheme {
+        BottomNavigationBar(
+            navController = rememberNavController()
+        )
     }
 }

@@ -18,22 +18,25 @@ import androidx.compose.ui.unit.dp
 
 object AppColors {
     // Primary
-    val BlueSoft = Color(0xFF5C6BC0)
-    val BlueSoftLight = Color(0xFF9FA8DA)
-    val BlueNavy = Color(0xFF001E3C)
+    val Bronze = Color(0xFFCD7F32)
+    val BronzeDeep = Color(0xFF4A2600)
+    val BronzeDarkMuted = Color(0xFF9C5A1F)
+    val BronzeDeepest = Color(0xFF2A1400)
+
+    // Secondary
+    val WarmTaupeLight = Color(0xFF8C6F50)
+    val WarmTaupeDark = Color(0xFF7D6953)
+    val OnWarmTaupeLight = Color(0xFFF3E9DF)
+    val OnWarmTaupeDark = Color(0xFF2A251F)
 
     // Containers
     val WarmContainerLight = Color(0xFFE6E3DD)
-    val WarmAccentContainerLight = Color(0xFFDCD7EA)
     val WarmContainerDark = Color(0xFF232220)
-    val WarmAccentDark = Color(0xFF3A3847)
-
-    // Secondary Greys/Blues
-    val GreyBlue = Color(0xFF607D8B)
-    val GreyBlueLight = Color(0xFF90A4AE)
+    val BronzeContainerLight = Color(0xFFF5E8D6)
+    val BronzeContainerDark = Color(0xFF5A4130)
+    val OnBronzeContainerDark = Color(0xFFF2E6D9)
 
     // Neutrals - Light
-    val White = Color.White
     val GreyVeryLight = Color(0xFFE3E3E3)
     val WarmBackground = Color(0xFFF5F3EE)
     val WarmSurface = Color(0xFFFAF9F6)
@@ -41,7 +44,6 @@ object AppColors {
 
     // Neutrals - Dark
     val GreyVeryDark = Color(0xFF1C1B1F)
-    val GreyDark = Color(0xFF1B1B1B)
     val WarmSurfaceDark = Color(0xFF242424)
     val GreyCharcoal = Color(0xFF1E1E1E)
     val GreySlate = Color(0xFF2A2A2E)
@@ -56,7 +58,7 @@ object AppColors {
 
     // Error/Alert
     val RedError = Color(0xFFB3261E)
-    val PinkError = Color(0xFFF2B8B5)
+    val TerracottaError = Color(0xFFCF6679)
 
     // Rating
     val WarmOrange = Color(0xFFFFB300)

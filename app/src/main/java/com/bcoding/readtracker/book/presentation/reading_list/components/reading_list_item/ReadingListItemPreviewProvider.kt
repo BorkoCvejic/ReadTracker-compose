@@ -1,10 +1,10 @@
-package com.bcoding.readtracker.book.presentation.search.components.book_list_item
+package com.bcoding.readtracker.book.presentation.reading_list.components.reading_list_item
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import com.bcoding.readtracker.book.domain.model.Book
 
-class BookListItemProvider: PreviewParameterProvider<BookListItemStatePreview> {
-    override val values: Sequence<BookListItemStatePreview>
+class ReadingListItemProvider: PreviewParameterProvider<ReadingListItemStatePreview> {
+    override val values: Sequence<ReadingListItemStatePreview>
         get() = books.asSequence()
 
     override fun getDisplayName(index: Int): String? {
@@ -12,9 +12,9 @@ class BookListItemProvider: PreviewParameterProvider<BookListItemStatePreview> {
     }
 
     val books = listOf(
-        BookListItemStatePreview(
+        ReadingListItemStatePreview(
             book = Book(
-                id = 123.toString(),
+                bookId = 123.toString(),
                 title = "Harry Potter",
                 imageUrl = "https://test.com",
                 authors = listOf("JK Rowling"),
@@ -28,9 +28,9 @@ class BookListItemProvider: PreviewParameterProvider<BookListItemStatePreview> {
             ),
             displayName = "Regular item"
         ),
-        BookListItemStatePreview(
+        ReadingListItemStatePreview(
             book = Book(
-                id = 123.toString(),
+                bookId = 123.toString(),
                 title = "Harry Potter",
                 imageUrl = "https://test.com",
                 authors = emptyList(),
@@ -44,9 +44,9 @@ class BookListItemProvider: PreviewParameterProvider<BookListItemStatePreview> {
             ),
             displayName = "No author"
         ),
-        BookListItemStatePreview(
+        ReadingListItemStatePreview(
             book = Book(
-                id = 123.toString(),
+                bookId = 123.toString(),
                 title = "A Very Long Book Title That Should Probably Be Shortened In The UI To Avoid Overflowing The Layout Bounds",
                 imageUrl = "https://test.com",
                 authors = listOf("JK Rowling"),
@@ -60,9 +60,9 @@ class BookListItemProvider: PreviewParameterProvider<BookListItemStatePreview> {
             ),
             displayName = "Long title"
         ),
-        BookListItemStatePreview(
+        ReadingListItemStatePreview(
             book = Book(
-                id = 123.toString(),
+                bookId = 123.toString(),
                 title = "Harry Potter",
                 imageUrl = "https://test.com",
                 authors = listOf("JK Rowling"),
@@ -79,7 +79,7 @@ class BookListItemProvider: PreviewParameterProvider<BookListItemStatePreview> {
     )
 }
 
-data class BookListItemStatePreview(
+data class ReadingListItemStatePreview(
     val book: Book,
     val displayName: String
 )

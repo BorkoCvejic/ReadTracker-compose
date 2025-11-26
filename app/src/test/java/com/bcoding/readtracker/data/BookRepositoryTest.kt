@@ -1,5 +1,6 @@
 package com.bcoding.readtracker.data
 
+import com.bcoding.readtracker.book.data.database.BooksDao
 import com.bcoding.readtracker.book.data.dto.SearchResponseDto
 import com.bcoding.readtracker.book.data.dto.SearchedBookDto
 import com.bcoding.readtracker.book.data.mappers.toBook
@@ -26,6 +27,7 @@ import java.net.UnknownHostException
 class BookRepositoryTest : KoinTest {
 
     private val api = mockk<Api>()
+    private val booksDao = mockk<BooksDao>()
     private val repository by inject<BookRepository>()
 
     @Before
@@ -34,7 +36,8 @@ class BookRepositoryTest : KoinTest {
             modules(
                 module {
                     single { api }
-                    single<BookRepository> { BookRepositoryImpl(get()) }
+                    single { booksDao }
+                    single<BookRepository> { BookRepositoryImpl(get(), get()) }
                 }
             )
         }
@@ -50,7 +53,7 @@ class BookRepositoryTest : KoinTest {
         val mockedDto = SearchResponseDto(
             results = listOf(
                 SearchedBookDto(
-                    id = "1",
+                    bookId = "1",
                     title = "Harry Potter and the Sorcerer's Stone",
                     authorNames = listOf("JK Rowling"),
                     languages = listOf("eng"),
@@ -66,7 +69,7 @@ class BookRepositoryTest : KoinTest {
 
         val result = repository.searchBooks("Harry Potter")
 
-        val expectedBooks = mockedDto.results.map { it.toBook() }
+        val expectedBooks = mockedDto.results.map { searchedBookDto -> searchedBookDto.toBook() }
 
         assertTrue(result is Outcome.Success)
         assertEquals(expectedBooks, (result as Outcome.Success).data)

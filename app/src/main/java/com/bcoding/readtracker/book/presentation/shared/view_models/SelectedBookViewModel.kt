@@ -1,4 +1,4 @@
-package com.bcoding.readtracker.book.presentation
+package com.bcoding.readtracker.book.presentation.shared.view_models
 
 import androidx.lifecycle.ViewModel
 import com.bcoding.readtracker.book.domain.model.Book

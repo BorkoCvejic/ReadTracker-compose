@@ -16,11 +16,15 @@ sealed class Routes {
     @Serializable
     object ProgressTracker: Routes()
 
-    // Favorites
+    // Library
     @Serializable
-    object FavoritesGraph: Routes()
+    object LibraryGraph: Routes()
     @Serializable
-    object Favorites: Routes()
+    object Library: Routes()
+
+    // Reading list
+    @Serializable
+    data class ReadingList(val readingListId: Long, val readingListName: String): Routes()
 
     // Shared routes
     @Serializable

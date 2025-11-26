@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
-import com.bcoding.readtracker.book.presentation.SelectedBookViewModel
+import com.bcoding.readtracker.book.presentation.shared.view_models.SelectedBookViewModel
 import com.bcoding.readtracker.core.presentation.navigation.Routes.*
 import org.koin.androidx.compose.koinViewModel
 
@@ -28,7 +28,22 @@ fun MainNavHost(
             }
         )
         progressTrackerGraph(modifier = modifier)
-        favoritesGraph(modifier = modifier)
+        libraryGraph(
+            modifier = modifier,
+            showReadingList = { readingList ->
+                navController.navigate(
+                    ReadingList(
+                        readingListId = readingList.readingListId,
+                        readingListName = readingList.readingListName
+                    )
+                )
+            },
+            navigateUp = { navController.navigateUp() },
+            showDetails = { book ->
+                selectedBookViewModel.onSelectBook(book)
+                navController.navigate(BookDetails)
+            }
+        )
         sharedGraph(
             selectedBookViewModel = selectedBookViewModel,
             navigateUp = {
