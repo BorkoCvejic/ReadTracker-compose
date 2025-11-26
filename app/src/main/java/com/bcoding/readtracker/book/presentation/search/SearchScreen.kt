@@ -28,8 +28,9 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.bcoding.readtracker.R
 import com.bcoding.readtracker.book.domain.model.Book
-import com.bcoding.readtracker.book.presentation.search.components.book_list_item.BookListItem
+import com.bcoding.readtracker.book.presentation.reading_list.components.reading_list_item.ReadingListItem
 import com.bcoding.readtracker.book.presentation.search.components.search_bar.ReadTrackerSearchBar
+import com.bcoding.readtracker.book.presentation.shared.actions.UiActions
 import com.bcoding.readtracker.core.presentation.UiText
 import com.bcoding.readtracker.core.presentation.components.PulseAnimation
 import com.bcoding.readtracker.core.presentation.theme.ReadTrackerTheme
@@ -68,7 +69,7 @@ fun SearchScreen(
     error: UiText?,
     books: List<Book>,
     searchQuery: String,
-    onAction: (SearchScreenActions) -> Unit
+    onAction: (UiActions) -> Unit
 ) {
     // used for clearing focus when clicking outside of search bar
     val focusManager = LocalFocusManager.current
@@ -108,7 +109,7 @@ fun SearchScreen(
                         textAlign = TextAlign.Center
                     )
                     books.isEmpty() -> Text(
-                        text = stringResource(R.string.search_screen_no_search_results),
+                        text = stringResource(R.string.search_screen_message_no_search_results),
                         style = MaterialTheme.typography.titleMedium,
                         textAlign = TextAlign.Center
                     )
@@ -117,8 +118,8 @@ fun SearchScreen(
                             modifier = Modifier.fillMaxSize()
                         ) {
                             Text(
-                                text = stringResource(R.string.search_screen_search_results),
-                                style = MaterialTheme.typography.headlineSmall,
+                                text = stringResource(R.string.search_screen_label_search_results),
+                                style = MaterialTheme.typography.displayMedium,
                                 textAlign = TextAlign.Start,
                                 modifier = Modifier
                                     .fillMaxWidth()
@@ -127,9 +128,9 @@ fun SearchScreen(
                             LazyColumn {
                                 items(
                                     items = books,
-                                    key = { it.id }
+                                    key = { book -> book.bookId }
                                 ) { book ->
-                                    BookListItem(
+                                    ReadingListItem(
                                         book = book,
                                         onAction = { action -> onAction(action) }
                                     )

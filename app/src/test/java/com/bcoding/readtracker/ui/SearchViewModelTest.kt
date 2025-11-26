@@ -5,6 +5,7 @@ import com.bcoding.readtracker.book.domain.repository.BookRepository
 import com.bcoding.readtracker.book.presentation.search.SearchScreenActions
 import com.bcoding.readtracker.book.presentation.search.SearchScreenUiEvents
 import com.bcoding.readtracker.book.presentation.search.SearchViewModel
+import com.bcoding.readtracker.book.presentation.shared.actions.BookSharedActions
 import com.bcoding.readtracker.core.domain.DataError
 import com.bcoding.readtracker.core.domain.Outcome
 import com.bcoding.readtracker.core.presentation.toUiText
@@ -65,7 +66,7 @@ class SearchViewModelTest : KoinTest {
         val query = "Harry Potter"
         val mockedBooks = listOf(
             Book(
-                id = "1",
+                bookId = "1",
                 title = "Harry Potter and the Sorcerer's Stone",
                 imageUrl = "https://example.com/image.jpg",
                 authors = listOf("J.K. Rowling"),
@@ -82,7 +83,7 @@ class SearchViewModelTest : KoinTest {
         coEvery { bookRepository.searchBooks(query) } returns Outcome.Success(mockedBooks)
 
         val stateJob = launch {
-            searchViewModel.state.collect { }
+            searchViewModel.state.collect {}
         }
 
         searchViewModel.onAction(SearchScreenActions.OnSearchQueryChange(query))
@@ -106,7 +107,7 @@ class SearchViewModelTest : KoinTest {
         coEvery { bookRepository.searchBooks(query) } returns Outcome.Error(error)
 
         val searchJob = launch {
-            searchViewModel.state.collect { }
+            searchViewModel.state.collect {}
         }
 
         searchViewModel.onAction(SearchScreenActions.OnSearchQueryChange(query))
@@ -123,8 +124,20 @@ class SearchViewModelTest : KoinTest {
 
     @Test
     fun `onBookClick emits NavigateToBookDetails event`() = runTest {
-        val bookId = "123"
-        val expectedEvent = SearchScreenUiEvents.NavigateToBookDetails(bookId)
+        val mockedBook = Book(
+            bookId = "42",
+            title = "Harry Potter and the Sorcerer's Stone",
+            imageUrl = "https://example.com/image.jpg",
+            authors = listOf("JK Rowling"),
+            languages = listOf("eng"),
+            numEditions = 3,
+            description = "Description",
+            firstPublishedYear = "2002",
+            ratingAverage = 4.45,
+            ratingCount = 100,
+            numPages = 300
+        )
+        val expectedEvent = SearchScreenUiEvents.NavigateToBookDetails(book = mockedBook)
 
         val events = mutableListOf<SearchScreenUiEvents>()
 
@@ -132,7 +145,7 @@ class SearchViewModelTest : KoinTest {
             searchViewModel.events.collect { events.add(it) }
         }
 
-        searchViewModel.onAction(SearchScreenActions.OnBookClick(bookId))
+        searchViewModel.onAction(BookSharedActions.OnBookClick(book = mockedBook))
         advanceUntilIdle()
 
         Assert.assertEquals(expectedEvent, events.first())

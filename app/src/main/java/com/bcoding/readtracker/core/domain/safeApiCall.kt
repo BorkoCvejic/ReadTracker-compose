@@ -1,6 +1,6 @@
 package com.bcoding.readtracker.core.domain
 
-import com.bcoding.readtracker.core.data.ApiErrorResponse
+import com.bcoding.readtracker.core.data.ApiErrorResponseSimple
 import com.bcoding.readtracker.core.presentation.DebugLog
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
@@ -26,8 +26,8 @@ suspend fun <T> safeApiCall(
         val apiErrorMessage = body?.let { errorBody ->
             DebugLog.log("safeApiCall", errorBody, e)
             try {
-                val apiError = Json.decodeFromString<ApiErrorResponse>(errorBody)
-                apiError.title ?: apiError.detail
+                val apiError = Json.decodeFromString<ApiErrorResponseSimple>(errorBody)
+                apiError.error
             } catch (_: Exception) {
                 null
             }

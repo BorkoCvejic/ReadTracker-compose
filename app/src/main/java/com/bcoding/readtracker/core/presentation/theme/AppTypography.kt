@@ -1,23 +1,34 @@
 package com.bcoding.readtracker.core.presentation.theme
 
+import android.content.res.Configuration
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.material3.Typography
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import com.bcoding.readtracker.R
 
 object AppTypography {
-    val Rubik = FontFamily(
-        Font(R.font.inter_regular, FontWeight.Normal),
-        Font(R.font.inter_medium, FontWeight.Medium),
-        Font(R.font.inter_semi_bold, FontWeight.SemiBold),
-        Font(R.font.inter_bold, FontWeight.Bold)
+    val Oswald = FontFamily(
+        Font(R.font.oswald_regular, FontWeight.Normal),
+        Font(R.font.oswald_medium, FontWeight.Medium),
+        Font(R.font.oswald_semi_bold, FontWeight.SemiBold),
+        Font(R.font.oswald_bold, FontWeight.Bold)
     )
 
     private val DefaultFontStyle = TextStyle(
-        fontFamily = Rubik
+        fontFamily = Oswald
     )
 
     val ReadTrackerTypography = Typography(
@@ -29,7 +40,7 @@ object AppTypography {
             letterSpacing = (-0.5).sp
         ),
         displayMedium = DefaultFontStyle.copy(
-            fontWeight = FontWeight.Bold,
+            fontWeight = FontWeight.SemiBold,
             fontSize = 28.sp,
             lineHeight = 36.sp
         ),
@@ -115,4 +126,56 @@ object AppTypography {
             letterSpacing = 0.5.sp
         )
     )
+}
+
+@Preview("Typography Light")
+@Preview("Typography Dark", uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+fun TypographyPreview() {
+    ReadTrackerTheme(dynamicColor = false) {
+        Column(
+            modifier = Modifier
+                .background(MaterialTheme.colorScheme.background)
+                .verticalScroll(rememberScrollState())
+                .padding(MaterialTheme.appDimensions.dimen16)
+        ) {
+            val typography = MaterialTheme.typography
+            val items = listOf(
+                "displayLarge" to typography.displayLarge,
+                "displayMedium" to typography.displayMedium,
+                "displaySmall" to typography.displaySmall,
+                "headlineLarge" to typography.headlineLarge,
+                "headlineMedium" to typography.headlineMedium,
+                "headlineSmall" to typography.headlineSmall,
+                "titleLarge" to typography.titleLarge,
+                "titleMedium" to typography.titleMedium,
+                "titleSmall" to typography.titleSmall,
+                "bodyLarge" to typography.bodyLarge,
+                "bodyMedium" to typography.bodyMedium,
+                "bodySmall" to typography.bodySmall,
+                "labelLarge" to typography.labelLarge,
+                "labelMedium" to typography.labelMedium,
+                "labelSmall" to typography.labelSmall
+            )
+
+            items.forEach { (name, style) ->
+                Column(
+                    modifier = Modifier.padding(
+                        vertical = MaterialTheme.appDimensions.dimen2
+                    )
+                ) {
+                    Text(
+                        text = name,
+                        style = MaterialTheme.typography.labelSmall,
+                        color = MaterialTheme.colorScheme.primary
+                    )
+                    Text(
+                        text = "Sample text with $name",
+                        style = style,
+                        color = MaterialTheme.colorScheme.onBackground
+                    )
+                }
+            }
+        }
+    }
 }

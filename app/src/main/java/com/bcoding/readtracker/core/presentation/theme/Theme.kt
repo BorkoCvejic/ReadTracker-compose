@@ -10,13 +10,13 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.platform.LocalContext
-import com.bcoding.readtracker.core.presentation.theme.AppColors.BlueNavy
-import com.bcoding.readtracker.core.presentation.theme.AppColors.BlueSoft
-import com.bcoding.readtracker.core.presentation.theme.AppColors.BlueSoftLight
-import com.bcoding.readtracker.core.presentation.theme.AppColors.GreyBlue
-import com.bcoding.readtracker.core.presentation.theme.AppColors.GreyBlueLight
+import com.bcoding.readtracker.core.presentation.theme.AppColors.Bronze
+import com.bcoding.readtracker.core.presentation.theme.AppColors.BronzeDarkMuted
+import com.bcoding.readtracker.core.presentation.theme.AppColors.BronzeContainerDark
+import com.bcoding.readtracker.core.presentation.theme.AppColors.BronzeDeep
+import com.bcoding.readtracker.core.presentation.theme.AppColors.BronzeDeepest
+import com.bcoding.readtracker.core.presentation.theme.AppColors.BronzeContainerLight
 import com.bcoding.readtracker.core.presentation.theme.AppColors.GreyCharcoal
-import com.bcoding.readtracker.core.presentation.theme.AppColors.GreyDark
 import com.bcoding.readtracker.core.presentation.theme.AppColors.GreyDividerDark
 import com.bcoding.readtracker.core.presentation.theme.AppColors.GreyDividerLight
 import com.bcoding.readtracker.core.presentation.theme.AppColors.GreyLilac
@@ -24,56 +24,56 @@ import com.bcoding.readtracker.core.presentation.theme.AppColors.GreyMauve
 import com.bcoding.readtracker.core.presentation.theme.AppColors.GreyMedium
 import com.bcoding.readtracker.core.presentation.theme.AppColors.GreyNeutral
 import com.bcoding.readtracker.core.presentation.theme.AppColors.GreySlate
-import com.bcoding.readtracker.core.presentation.theme.AppColors.GreyVeryDark
-import com.bcoding.readtracker.core.presentation.theme.AppColors.GreyVeryLight
-import com.bcoding.readtracker.core.presentation.theme.AppColors.PinkError
+import com.bcoding.readtracker.core.presentation.theme.AppColors.OnBronzeContainerDark
+import com.bcoding.readtracker.core.presentation.theme.AppColors.OnWarmTaupeDark
+import com.bcoding.readtracker.core.presentation.theme.AppColors.OnWarmTaupeLight
+import com.bcoding.readtracker.core.presentation.theme.AppColors.TerracottaError
 import com.bcoding.readtracker.core.presentation.theme.AppColors.RedError
-import com.bcoding.readtracker.core.presentation.theme.AppColors.WarmAccentContainerLight
-import com.bcoding.readtracker.core.presentation.theme.AppColors.WarmAccentDark
 import com.bcoding.readtracker.core.presentation.theme.AppColors.WarmBackground
 import com.bcoding.readtracker.core.presentation.theme.AppColors.WarmContainerDark
 import com.bcoding.readtracker.core.presentation.theme.AppColors.WarmContainerLight
 import com.bcoding.readtracker.core.presentation.theme.AppColors.WarmSurface
 import com.bcoding.readtracker.core.presentation.theme.AppColors.WarmSurfaceDark
 import com.bcoding.readtracker.core.presentation.theme.AppColors.WarmSurfaceVariant
-import com.bcoding.readtracker.core.presentation.theme.AppColors.White
+import com.bcoding.readtracker.core.presentation.theme.AppColors.WarmTaupeDark
+import com.bcoding.readtracker.core.presentation.theme.AppColors.WarmTaupeLight
 
 private val LightColorScheme = lightColorScheme(
-    primary = BlueSoft,
-    onPrimary = White,
-    secondary = GreyBlue,
-    onSecondary = White,
+    primary = Bronze,
+    onPrimary = BronzeDeep,
+    secondary = WarmTaupeLight,
+    onSecondary = OnWarmTaupeLight,
     background = WarmBackground,
-    onBackground = GreyVeryDark,
+    onBackground = WarmSurfaceDark,
     surface = WarmSurface,
-    onSurface = GreyVeryDark,
+    onSurface = WarmSurfaceDark,
     surfaceVariant = WarmSurfaceVariant,
     onSurfaceVariant = GreyNeutral,
     surfaceContainer = WarmContainerLight,
-    secondaryContainer = WarmAccentContainerLight,
-    onSecondaryContainer = BlueSoft,
+    secondaryContainer = BronzeContainerLight,
+    onSecondaryContainer = Bronze,
     outline = GreyMedium,
     outlineVariant = GreyDividerLight,
     error = RedError,
 )
 
 private val DarkColorScheme = darkColorScheme(
-    primary = BlueSoftLight,
-    onPrimary = BlueNavy,
-    secondary = GreyBlueLight,
-    onSecondary = GreyDark,
+    primary = BronzeDarkMuted,
+    onPrimary = BronzeDeepest,
+    secondary = WarmTaupeDark,
+    onSecondary = OnWarmTaupeDark,
     background = WarmSurfaceDark,
-    onBackground = GreyVeryLight,
+    onBackground = GreyLilac,
     surface = GreyCharcoal,
-    onSurface = GreyVeryLight,
+    onSurface = GreyLilac,
     surfaceVariant = GreySlate,
     onSurfaceVariant = GreyLilac,
     surfaceContainer = WarmContainerDark,
-    secondaryContainer = WarmAccentDark,
-    onSecondaryContainer = BlueSoftLight,
+    secondaryContainer = BronzeContainerDark,
+    onSecondaryContainer = OnBronzeContainerDark,
     outline = GreyMauve,
     outlineVariant = GreyDividerDark,
-    error = PinkError
+    error = TerracottaError
 )
 
 @Composable

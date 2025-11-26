@@ -1,4 +1,4 @@
-package com.bcoding.readtracker.book.presentation.search.components.book_list_item
+package com.bcoding.readtracker.book.presentation.reading_list.components.reading_list_item
 
 import android.content.res.Configuration
 import androidx.compose.foundation.Image
@@ -31,28 +31,34 @@ import coil3.compose.AsyncImagePainter
 import coil3.compose.rememberAsyncImagePainter
 import com.bcoding.readtracker.R
 import com.bcoding.readtracker.book.domain.model.Book
-import com.bcoding.readtracker.book.presentation.search.SearchScreenActions
+import com.bcoding.readtracker.book.presentation.shared.actions.BookSharedActions
 import com.bcoding.readtracker.core.presentation.components.PulseAnimation
 import com.bcoding.readtracker.core.presentation.theme.AppColors.WarmOrange
 import com.bcoding.readtracker.core.presentation.theme.ReadTrackerTheme
 import com.bcoding.readtracker.core.presentation.theme.appDimensions
 
 @Composable
-fun BookListItem(
+fun ReadingListItem(
     modifier: Modifier = Modifier,
     book: Book,
-    onAction: (SearchScreenActions.OnBookClick) -> Unit
+    onAction: (BookSharedActions.OnBookClick) -> Unit
 ) {
     ElevatedCard(
         shape = MaterialTheme.shapes.medium,
+        elevation = CardDefaults.elevatedCardElevation(
+            defaultElevation = MaterialTheme.appDimensions.elevationDefault
+        ),
         modifier = modifier
             .height(MaterialTheme.appDimensions.dimen140)
-            .padding(bottom = MaterialTheme.appDimensions.dimen24),
+            .padding(
+                top = MaterialTheme.appDimensions.dimen8,
+                bottom = MaterialTheme.appDimensions.dimen16
+            ),
         colors = CardDefaults.elevatedCardColors(
             containerColor = MaterialTheme.colorScheme.background
         ),
         onClick = {
-            onAction(SearchScreenActions.OnBookClick(book = book))
+            onAction(BookSharedActions.OnBookClick(book = book))
         }
     ) {
         Row(
@@ -80,7 +86,7 @@ fun BookListItem(
                         Image(
                             painter = painterResource(R.drawable.ic_error_book),
                             contentDescription = stringResource(
-                                R.string.search_screen_book_cover,
+                                R.string.search_screen_content_desc_book_cover,
                                 book.title
                             )
                         )
@@ -89,7 +95,7 @@ fun BookListItem(
                         Image(
                             painter = painter,
                             contentDescription = stringResource(
-                                R.string.search_screen_book_cover,
+                                R.string.search_screen_content_desc_book_cover,
                                 book.title
                             )
                         )
@@ -160,11 +166,11 @@ fun BookListItem(
 @Preview(name = "Light mode")
 @Preview(name = "Dark mode", uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-private fun BookListItemPreview(
-    @PreviewParameter(BookListItemProvider::class) bookStatePreview: BookListItemStatePreview
+private fun ReadingListItemPreview(
+    @PreviewParameter(ReadingListItemProvider::class) bookStatePreview: ReadingListItemStatePreview
 ) {
     ReadTrackerTheme {
-        BookListItem(
+        ReadingListItem(
             book = bookStatePreview.book,
             onAction = {}
         )

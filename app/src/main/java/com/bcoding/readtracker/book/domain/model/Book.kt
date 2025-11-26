@@ -1,7 +1,7 @@
 package com.bcoding.readtracker.book.domain.model
 
 data class Book(
-    val id: String,
+    val bookId: String,
     val title: String,
     val imageUrl: String,
     val authors: List<String>,

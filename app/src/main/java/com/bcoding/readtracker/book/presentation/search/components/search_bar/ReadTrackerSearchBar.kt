@@ -60,7 +60,7 @@ fun ReadTrackerSearchBar(
                     painter = painterResource(
                         R.drawable.ic_close
                     ),
-                    contentDescription = stringResource(R.string.search_screen_clear_search),
+                    contentDescription = stringResource(R.string.search_screen_content_desc_clear_search),
                     modifier = Modifier.clickable { onQueryChange("") }
                 )
             }

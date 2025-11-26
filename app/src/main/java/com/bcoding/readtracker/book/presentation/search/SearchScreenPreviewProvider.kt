@@ -12,13 +12,13 @@ class SearchScreenPreviewProvider: PreviewParameterProvider<SearchScreenStatePre
         return states[index].displayName
     }
 
-    private val books = (1..10).map {
+    private val books = (1..10).map { bookId ->
         Book(
-            id = it.toString(),
-            title = "Book $it",
+            bookId = bookId.toString(),
+            title = "Book $bookId",
             imageUrl = "https://test.com",
             authors = listOf("Borko Cvejic"),
-            description = "Description $it",
+            description = "Description $bookId",
             languages = emptyList(),
             firstPublishedYear = null,
             ratingAverage = 4.6757,

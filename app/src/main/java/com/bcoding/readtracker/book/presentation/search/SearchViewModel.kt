@@ -3,6 +3,8 @@ package com.bcoding.readtracker.book.presentation.search
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bcoding.readtracker.book.domain.repository.BookRepository
+import com.bcoding.readtracker.book.presentation.shared.actions.BookSharedActions
+import com.bcoding.readtracker.book.presentation.shared.actions.UiActions
 import com.bcoding.readtracker.core.domain.onError
 import com.bcoding.readtracker.core.domain.onSuccess
 import com.bcoding.readtracker.core.presentation.toUiText
@@ -42,16 +44,16 @@ class SearchViewModel(
     private val _events = MutableSharedFlow<SearchScreenUiEvents>()
     val events = _events.asSharedFlow()
 
-    fun onAction(action: SearchScreenActions) {
+    fun onAction(action: UiActions) {
         when (action) {
             is SearchScreenActions.OnSearchQueryChange -> {
                 _state.update { currentState ->
                     currentState.copy(searchQuery = action.query)
                 }
             }
-            is SearchScreenActions.OnBookClick -> {
+            is BookSharedActions.OnBookClick -> {
                 viewModelScope.launch {
-                    _events.emit(SearchScreenUiEvents.NavigateToBookDetails(action.book))
+                    _events.emit(SearchScreenUiEvents.NavigateToBookDetails(book = action.book))
                 }
             }
         }
@@ -64,13 +66,13 @@ class SearchViewModel(
             .distinctUntilChanged()
             .debounce(500L)
             .onEach { query ->
-                if (query.length >= 2) {
+                if (query.length >= 3) {
                     searchJob?.cancel()
                     searchJob = searchBooks(query)
                 } else if (query.isEmpty()) {
                     _state.update { currentState ->
                         currentState.copy(
-                            books = emptyList(),
+                            books = emptyList()
                         )
                     }
                 }

@@ -8,11 +8,17 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
+import androidx.navigation.toRoute
 import com.bcoding.readtracker.book.domain.model.Book
-import com.bcoding.readtracker.book.presentation.SelectedBookViewModel
+import com.bcoding.readtracker.book.domain.model.ReadingListOverview
+import com.bcoding.readtracker.book.presentation.shared.view_models.SelectedBookViewModel
 import com.bcoding.readtracker.book.presentation.book_details.BookDetailsScreenActions
 import com.bcoding.readtracker.book.presentation.book_details.BookDetailsScreenRoot
 import com.bcoding.readtracker.book.presentation.book_details.BookDetailsViewModel
+import com.bcoding.readtracker.book.presentation.library.LibraryScreenRoot
+import com.bcoding.readtracker.book.presentation.library.LibraryViewModel
+import com.bcoding.readtracker.book.presentation.reading_list.ReadingListScreenRoot
+import com.bcoding.readtracker.book.presentation.reading_list.ReadingListViewModel
 import com.bcoding.readtracker.book.presentation.search.SearchScreenRoot
 import com.bcoding.readtracker.book.presentation.search.SearchViewModel
 import com.bcoding.readtracker.core.presentation.navigation.Routes.*
@@ -46,12 +52,33 @@ fun NavGraphBuilder.progressTrackerGraph(modifier: Modifier) {
     }
 }
 
-fun NavGraphBuilder.favoritesGraph(modifier: Modifier) {
-    navigation<FavoritesGraph>(
-        startDestination = Favorites
+fun NavGraphBuilder.libraryGraph(
+    modifier: Modifier,
+    showReadingList: (ReadingListOverview) -> Unit,
+    navigateUp: () -> Unit,
+    showDetails: (Book) -> Unit
+) {
+    navigation<LibraryGraph>(
+        startDestination = Library
     ) {
-        composable<Favorites> {
-            Text(modifier = modifier, text = "Favorites")
+        composable<Library> {
+            val libraryViewModel = koinViewModel<LibraryViewModel>()
+            LibraryScreenRoot(
+                modifier = modifier,
+                libraryViewModel = libraryViewModel,
+                showReadingList = { readingList -> showReadingList(readingList) }
+            )
+        }
+        composable<ReadingList> { backStackEntry ->
+            val readingListName = backStackEntry.toRoute<ReadingList>().readingListName
+            val readingListViewModel = koinViewModel<ReadingListViewModel>()
+
+            ReadingListScreenRoot(
+                readingListViewModel = readingListViewModel,
+                readingListName = readingListName,
+                navigateUp = { navigateUp() },
+                showDetails = { book -> showDetails(book)}
+            )
         }
     }
 }

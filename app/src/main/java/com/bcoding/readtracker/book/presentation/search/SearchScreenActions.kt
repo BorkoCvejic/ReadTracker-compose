@@ -1,8 +1,7 @@
 package com.bcoding.readtracker.book.presentation.search
 
-import com.bcoding.readtracker.book.domain.model.Book
+import com.bcoding.readtracker.book.presentation.shared.actions.UiActions
 
-sealed interface SearchScreenActions {
+sealed interface SearchScreenActions: UiActions {
     data class OnSearchQueryChange(val query: String) : SearchScreenActions
-    data class OnBookClick(val book: Book) : SearchScreenActions
 }

@@ -58,7 +58,7 @@ fun BlurredImageBackground(
                         Image(
                             painter = painter,
                             contentDescription = stringResource(
-                                R.string.search_screen_book_cover,
+                                R.string.search_screen_content_desc_book_cover,
                                 title
                             ),
                             contentScale = ContentScale.Crop,
@@ -84,13 +84,13 @@ fun BlurredImageBackground(
             modifier = Modifier
                 .align(Alignment.TopStart)
                 .padding(
-                    top = MaterialTheme.appDimensions.dimen32,
-                    start = MaterialTheme.appDimensions.dimen16
+                    top = MaterialTheme.appDimensions.dimen24,
+                    start = MaterialTheme.appDimensions.dimen8
                 )
         ) {
             Icon(
                 painter = painterResource(R.drawable.ic_back),
-                contentDescription = stringResource(R.string.book_details_screen_go_back),
+                contentDescription = stringResource(R.string.button_go_back),
             )
         }
         Column(
@@ -106,7 +106,7 @@ fun BlurredImageBackground(
                     .aspectRatio(2 / 3f),
                 shape = MaterialTheme.shapes.small,
                 elevation = CardDefaults.elevatedCardElevation(
-                    defaultElevation = MaterialTheme.appDimensions.defaultElevation
+                    defaultElevation = MaterialTheme.appDimensions.elevationDefault
                 )
             ) {
                 val painter = rememberAsyncImagePainter(imageUrl)
@@ -115,14 +115,19 @@ fun BlurredImageBackground(
                 when (painterState) {
                     is AsyncImagePainter.State.Empty,
                     is AsyncImagePainter.State.Loading -> {
-                        PulseAnimation()
+                        Box(
+                            modifier = Modifier.fillMaxSize(),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            PulseAnimation()
+                        }
                     }
                     is AsyncImagePainter.State.Error -> {
                         Image(
                             modifier = Modifier.fillMaxSize(),
                             painter = painterResource(R.drawable.ic_error_book),
                             contentDescription = stringResource(
-                                R.string.search_screen_book_cover,
+                                R.string.search_screen_content_desc_book_cover,
                                 title
                             )
                         )
@@ -132,7 +137,7 @@ fun BlurredImageBackground(
                             modifier = Modifier.fillMaxSize(),
                             painter = painter,
                             contentDescription = stringResource(
-                                R.string.search_screen_book_cover,
+                                R.string.search_screen_content_desc_book_cover,
                                 title
                             ),
                             contentScale = ContentScale.FillBounds

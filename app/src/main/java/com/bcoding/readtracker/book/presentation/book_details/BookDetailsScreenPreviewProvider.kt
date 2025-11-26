@@ -17,7 +17,7 @@ class BookDetailsScreenPreviewProvider: PreviewParameterProvider<BookDetailsScre
         BookDetailsScreenStateProvider(
             isLoadingDescription = false,
             selectedBook = Book(
-                id = "1",
+                bookId = "1",
                 title = "Harry Potter",
                 imageUrl = "https://test.com",
                 authors = listOf("JK Rowling"),
@@ -35,7 +35,7 @@ class BookDetailsScreenPreviewProvider: PreviewParameterProvider<BookDetailsScre
         BookDetailsScreenStateProvider(
             isLoadingDescription = false,
             selectedBook = Book(
-                id = "1",
+                bookId = "1",
                 title = "Harry Potter",
                 imageUrl = "https://test.com",
                 authors = listOf("JK Rowling"),
@@ -53,7 +53,7 @@ class BookDetailsScreenPreviewProvider: PreviewParameterProvider<BookDetailsScre
         BookDetailsScreenStateProvider(
             isLoadingDescription = false,
             selectedBook = Book(
-                id = "1",
+                bookId = "1",
                 title = "Harry Potter",
                 imageUrl = "https://test.com",
                 authors = listOf("JK Rowling"),
@@ -71,7 +71,7 @@ class BookDetailsScreenPreviewProvider: PreviewParameterProvider<BookDetailsScre
         BookDetailsScreenStateProvider(
             isLoadingDescription = false,
             selectedBook = Book(
-                id = "1",
+                bookId = "1",
                 title = "Harry Potter and the Philosopher's Stone",
                 imageUrl = "https://test.com",
                 authors = listOf("JK Rowling"),
@@ -89,7 +89,7 @@ class BookDetailsScreenPreviewProvider: PreviewParameterProvider<BookDetailsScre
         BookDetailsScreenStateProvider(
             isLoadingDescription = true,
             selectedBook = Book(
-                id = "1",
+                bookId = "1",
                 title = "Harry Potter and the Philosopher's Stone",
                 imageUrl = "https://test.com",
                 authors = listOf("JK Rowling"),

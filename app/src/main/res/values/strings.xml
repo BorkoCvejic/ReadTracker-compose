@@ -1,28 +1,53 @@
 <resources>
     <!-- Search screen -->
-    <string name="search_screen_search_results">Search results</string>
+    <string name="search_screen_label_search_results">Search results</string>
     <string name="search_screen_search_for_a_book_hint">Search for a book</string>
-    <string name="search_screen_clear_search">Clear search</string>
-    <string name="search_screen_no_search_results">Oops, there aren\'t any books for your search query.</string>
-    <string name="search_screen_book_cover">Book cover for %s</string>
+    <string name="search_screen_content_desc_clear_search">Clear search</string>
+    <string name="search_screen_message_no_search_results">Oops, no books have been found.</string>
+    <string name="search_screen_content_desc_book_cover">Book cover for %s</string>
 
     <!-- Book details screen -->
-    <string name="book_details_screen_languages">Languages</string>
-    <string name="book_details_screen_synopsis">Synopsis</string>
-    <string name="book_details_screen_first_published_year">First published year</string>
-    <string name="book_details_screen_number_of_pages">Number of pages</string>
-    <string name="book_details_screen_mark_as_favorite">Mark as favorite</string>
-    <string name="book_details_screen_remove_from_favorites">Remove from favorites</string>
-    <string name="book_details_screen_description_unavailable">There is no description available for this book.</string>
-    <string name="book_details_screen_go_back">Go back</string>
-    <string name="book_details_screen_error_loading">Error with loading a book details</string>
+    <string name="book_details_screen_label_languages">Languages</string>
+    <string name="book_details_screen_label_synopsis">Synopsis</string>
+    <string name="book_details_screen_label_first_published_year">First published year</string>
+    <string name="book_details_screen_label_number_of_pages">Number of pages</string>
+    <string name="book_details_screen_message_description_unavailable">There is no description available for this book.</string>
+    <string name="book_details_screen_error_loading">Error with loading a book details.</string>
+    <string name="book_details_screen_content_desc_add_book_to_list">Add book to list</string>
 
-    <!-- Shared book strings -->
+    <!-- Library screen -->
+    <plurals name="library_screen_books_count">
+        <item quantity="one">%d book</item>
+        <item quantity="other">%d books</item>
+    </plurals>
+    <string name="library_screen_title">Library</string>
+    <string name="library_screen_message_no_saved_lists">You don\'t have any saved lists yet.</string>
+    <string name="library_screen_drop_down_menu_content_desc_more_options">More options</string>
+    <string name="library_screen_drop_down_menu_change_list_name">Change list name</string>
+    <string name="library_screen_drop_down_menu_delete_list">Delete list</string>
+    <string name="library_screen_fab_content_desc_add_new_list">Add new list</string>
+
+    <!-- Reading list screen -->
+    <string name="reading_list_screen_message_empty_list">This list is empty.</string>
+
+    <!-- Shared book -->
     <string name="book_rating">Rating</string>
 
-    <!-- Favorites screen -->
-    <string name="favorites_screen_title">Favorites</string>
-    <string name="favorites_screen_no_favorite_books">No favorite books yet.</string>
+    <!-- Add to reading list dialog -->
+    <string name="add_to_reading_list_dialog_title">Add to list</string>
+    <string name="add_to_reading_list_dialog_content_desc_confirm">Confirm</string>
+    <string name="add_to_reading_list_dialog_label_create_new_list">Create new list</string>
+
+    <!-- Dialogs -->
+    <string name="dialog_rename_title">Rename list</string>
+    <string name="dialog_create_title">Create new list</string>
+    <string name="dialog_delete_title">Delete list</string>
+    <string name="dialog_rename_text_field_placeholder">Enter new name</string>
+    <string name="dialog_create_text_field_placeholder">Enter list name</string>
+    <string name="dialog_rename_confirm_button_label">Save</string>
+    <string name="dialog_create_confirm_button_label">Create</string>
+    <string name="dialog_delete_confirm_button_label">Delete</string>
+    <string name="dialog_confirmation_message_delete">Are you sure you want to delete %1$s list?</string>
 
     <!-- Errors -->
     <string name="error_disk_full">Oops, it seems like your disk is full.</string>
@@ -35,7 +60,16 @@
     <string name="error_too_many_requests">Your quota seems to be exceeded.</string>
     <string name="error_server">Server not available.</string>
     <string name="error_unknown">Oops, something went wrong.</string>
+    <string name="error_empty_name">Name can\'t be empty.</string>
+    <string name="error_duplicate_list">List with that name already exists.</string>
+
+    <!-- Nav items -->
+    <string name="nav_item_search_label">Search</string>
+    <string name="nav_item_library_label">Library</string>
 
     <!-- General -->
     <string name="app_name">ReadTracker</string>
+    <string name="button_go_back">Go back</string>
+    <string name="button_label_cancel">Cancel</string>
+    <string name="button_label_save">Save</string>
 </resources>
