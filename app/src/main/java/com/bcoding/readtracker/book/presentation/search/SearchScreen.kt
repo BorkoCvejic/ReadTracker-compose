@@ -6,11 +6,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -28,8 +25,8 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.bcoding.readtracker.R
 import com.bcoding.readtracker.book.domain.model.Book
-import com.bcoding.readtracker.book.presentation.reading_list.components.reading_list_item.ReadingListItem
 import com.bcoding.readtracker.book.presentation.search.components.search_bar.ReadTrackerSearchBar
+import com.bcoding.readtracker.book.presentation.search.components.search_results.SearchResultsSection
 import com.bcoding.readtracker.book.presentation.shared.actions.UiActions
 import com.bcoding.readtracker.core.presentation.UiText
 import com.bcoding.readtracker.core.presentation.components.PulseAnimation
@@ -55,10 +52,12 @@ fun SearchScreenRoot(
     SearchScreen(
         modifier = modifier,
         isLoading = searchScreenState.isLoading,
-        error = searchScreenState.error,
-        books = searchScreenState.books,
+        isLoadingMore = searchScreenState.isLoadingMore,
+        canLoadMore = searchScreenState.canLoadMore,
         searchQuery = searchScreenState.searchQuery,
-        onAction = searchViewModel::onAction,
+        books = searchScreenState.books,
+        error = searchScreenState.error,
+        onAction = searchViewModel::onAction
     )
 }
 
@@ -66,9 +65,11 @@ fun SearchScreenRoot(
 fun SearchScreen(
     modifier: Modifier,
     isLoading: Boolean,
-    error: UiText?,
-    books: List<Book>,
+    isLoadingMore: Boolean,
+    canLoadMore: Boolean,
     searchQuery: String,
+    books: List<Book>,
+    error: UiText?,
     onAction: (UiActions) -> Unit
 ) {
     // used for clearing focus when clicking outside of search bar
@@ -103,40 +104,28 @@ fun SearchScreen(
             ) {
                 when {
                     isLoading -> PulseAnimation()
-                    error != null -> Text(
-                        text = error.asString(),
-                        style = MaterialTheme.typography.titleMedium,
-                        textAlign = TextAlign.Center
-                    )
-                    books.isEmpty() -> Text(
-                        text = stringResource(R.string.search_screen_message_no_search_results),
-                        style = MaterialTheme.typography.titleMedium,
-                        textAlign = TextAlign.Center
-                    )
+                    error != null && books.isEmpty()-> {
+                        Text(
+                            text = error.asString(),
+                            style = MaterialTheme.typography.titleMedium,
+                            textAlign = TextAlign.Center
+                        )
+                    }
+                    books.isEmpty() -> {
+                        Text(
+                            text = stringResource(R.string.search_screen_message_no_search_results),
+                            style = MaterialTheme.typography.titleMedium,
+                            textAlign = TextAlign.Center
+                        )
+                    }
                     else -> {
-                        Column(
-                            modifier = Modifier.fillMaxSize()
-                        ) {
-                            Text(
-                                text = stringResource(R.string.search_screen_label_search_results),
-                                style = MaterialTheme.typography.displayMedium,
-                                textAlign = TextAlign.Start,
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(bottom = MaterialTheme.appDimensions.dimen16)
-                            )
-                            LazyColumn {
-                                items(
-                                    items = books,
-                                    key = { book -> book.bookId }
-                                ) { book ->
-                                    ReadingListItem(
-                                        book = book,
-                                        onAction = { action -> onAction(action) }
-                                    )
-                                }
-                            }
-                        }
+                        SearchResultsSection(
+                            books = books,
+                            isLoadingMore = isLoadingMore,
+                            canLoadMore = canLoadMore,
+                            error = error,
+                            onAction = onAction
+                        )
                     }
                 }
             }
@@ -162,6 +151,8 @@ private fun SearchScreenPreview(
         SearchScreen(
             modifier = Modifier,
             isLoading = statePreview.state.isLoading,
+            isLoadingMore = statePreview.state.isLoadingMore,
+            canLoadMore = statePreview.state.canLoadMore,
             error = statePreview.state.error,
             books = statePreview.state.books,
             searchQuery = statePreview.state.searchQuery,

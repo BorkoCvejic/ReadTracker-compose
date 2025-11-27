@@ -3,13 +3,14 @@ package com.bcoding.readtracker.book.domain.repository
 import com.bcoding.readtracker.book.domain.model.Book
 import com.bcoding.readtracker.book.domain.model.ReadingListOverview
 import com.bcoding.readtracker.book.domain.model.Description
+import com.bcoding.readtracker.book.domain.model.SearchResult
 import com.bcoding.readtracker.core.domain.DataError
 import com.bcoding.readtracker.core.domain.Outcome
 import kotlinx.coroutines.flow.Flow
 
 interface BookRepository {
     // API
-    suspend fun searchBooks(query: String): Outcome<List<Book>, DataError>
+    suspend fun searchBooks(query: String, offset: Int, limit: Int): Outcome<SearchResult, DataError>
     suspend fun getDescription(bookId: String): Outcome<Description, DataError>
 
     // Database

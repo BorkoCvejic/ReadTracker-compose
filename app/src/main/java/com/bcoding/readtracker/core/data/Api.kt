@@ -15,6 +15,8 @@ interface Api {
     @GET("/search.json")
     suspend fun searchBooks(
         @Query("q") query: String,
+        @Query("offset") offset: Int,
+        @Query("limit") limit: Int,
         @Query("lang") lang: String = DEFAULT_SEARCH_LANG,
         @Query("fields") fields: String = SEARCH_FIELDS
     ): SearchResponseDto

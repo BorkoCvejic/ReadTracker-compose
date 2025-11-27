@@ -9,6 +9,7 @@ import com.bcoding.readtracker.book.data.mappers.toDescription
 import com.bcoding.readtracker.book.domain.model.Book
 import com.bcoding.readtracker.book.domain.model.ReadingListOverview
 import com.bcoding.readtracker.book.domain.model.Description
+import com.bcoding.readtracker.book.domain.model.SearchResult
 import com.bcoding.readtracker.book.domain.repository.BookRepository
 import com.bcoding.readtracker.core.data.Api
 import com.bcoding.readtracker.core.domain.DataError
@@ -22,10 +23,20 @@ class BookRepositoryImpl(
     private val api: Api,
     private val booksDao: BooksDao
 ): BookRepository {
-    override suspend fun searchBooks(query: String): Outcome<List<Book>, DataError> {
+    override suspend fun searchBooks(query: String, offset: Int, limit: Int): Outcome<SearchResult, DataError> {
         return safeApiCall {
-            val response = api.searchBooks(query)
-            response.results.map { searchedBookDto -> searchedBookDto.toBook() }
+            val response = api.searchBooks(
+                query = query,
+                offset = offset,
+                limit = limit
+            )
+
+            SearchResult(
+                books = response.results.map { searchedBookDto ->
+                    searchedBookDto.toBook()
+                },
+                hasMore = response.resultsSize > (offset + limit)
+            )
         }
     }
 
