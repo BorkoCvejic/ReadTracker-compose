@@ -28,6 +28,10 @@ class SearchViewModel(
     private val bookRepository: BookRepository
 ): ViewModel() {
 
+    companion object {
+        const val PAGE_SIZE = 10
+    }
+
     private val _state = MutableStateFlow(SearchState())
     val state = _state
         .onStart {
@@ -56,6 +60,15 @@ class SearchViewModel(
                     _events.emit(SearchScreenUiEvents.NavigateToBookDetails(book = action.book))
                 }
             }
+            is SearchScreenActions.OnLoadMore -> {
+                val currentState = _state.value
+                if (currentState.isLoading || currentState.isLoadingMore || !currentState.canLoadMore) return
+
+                searchBooks(
+                    query = currentState.searchQuery,
+                    isNewSearch = false
+                )
+            }
         }
     }
 
@@ -68,11 +81,15 @@ class SearchViewModel(
             .onEach { query ->
                 if (query.length >= 3) {
                     searchJob?.cancel()
-                    searchJob = searchBooks(query)
+                    searchJob = searchBooks(
+                        query = query,
+                        isNewSearch = true
+                    )
                 } else if (query.isEmpty()) {
                     _state.update { currentState ->
                         currentState.copy(
-                            books = emptyList()
+                            books = emptyList(),
+                            currentPage = 0
                         )
                     }
                 }
@@ -80,19 +97,50 @@ class SearchViewModel(
             .launchIn(viewModelScope)
     }
 
-    private fun searchBooks(query: String) = viewModelScope.launch {
+    private fun searchBooks(query: String, isNewSearch: Boolean) = viewModelScope.launch {
         _state.update { currentState ->
             currentState.copy(
                 isLoading = true
             )
         }
-        bookRepository.searchBooks(query)
+
+        if (isNewSearch) {
+            _state.update { currentState ->
+                currentState.copy(
+                    isLoading = true,
+                    isLoadingMore = false,
+                    currentPage = 0,
+                    books = emptyList()
+                )
+            }
+        } else {
+            _state.update { currentState ->
+                currentState.copy(
+                    isLoading = false,
+                    isLoadingMore = true
+                )
+            }
+        }
+
+        val page = if (isNewSearch) 0 else _state.value.currentPage
+        val offset = page * PAGE_SIZE
+
+        bookRepository.searchBooks(query, offset, PAGE_SIZE)
             .onSuccess { searchResult ->
                 _state.update { currentState ->
+                    val newBooks = if (isNewSearch) {
+                        searchResult.books
+                    } else {
+                        currentState.books + searchResult.books
+                    }
+
                     currentState.copy(
                         isLoading = false,
+                        isLoadingMore = false,
                         error = null,
-                        books = searchResult
+                        books = newBooks,
+                        canLoadMore = searchResult.hasMore,
+                        currentPage = page + 1
                     )
                 }
             }
@@ -100,8 +148,8 @@ class SearchViewModel(
                 _state.update { currentState ->
                     currentState.copy(
                         isLoading = false,
-                        error = error.toUiText(),
-                        books = emptyList()
+                        isLoadingMore = false,
+                        error = error.toUiText()
                     )
                 }
             }

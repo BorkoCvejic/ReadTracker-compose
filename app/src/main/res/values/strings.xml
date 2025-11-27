@@ -5,6 +5,7 @@
     <string name="search_screen_content_desc_clear_search">Clear search</string>
     <string name="search_screen_message_no_search_results">Oops, no books have been found.</string>
     <string name="search_screen_content_desc_book_cover">Book cover for %s</string>
+    <string name="search_screen_retry_button_label">Retry</string>
 
     <!-- Book details screen -->
     <string name="book_details_screen_label_languages">Languages</string>
