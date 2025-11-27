@@ -23,10 +23,12 @@ class SearchScreenTest {
                 SearchScreen(
                     modifier = Modifier.Companion,
                     isLoading = false,
+                    isLoadingMore = false,
+                    canLoadMore = false,
+                    onAction = {},
                     error = UiText.DynamicString(errorMessage),
                     books = emptyList(),
-                    searchQuery = "Harry Potter",
-                    onAction = {}
+                    searchQuery = "Harry Potter"
                 )
             }
         }
