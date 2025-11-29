@@ -5,6 +5,7 @@ import com.bcoding.readtracker.book.domain.model.SearchResult
 import com.bcoding.readtracker.book.domain.repository.BookRepository
 import com.bcoding.readtracker.book.presentation.search.SearchScreenActions
 import com.bcoding.readtracker.book.presentation.search.SearchScreenUiEvents
+import com.bcoding.readtracker.book.presentation.search.SearchState.Companion.PAGE_SIZE
 import com.bcoding.readtracker.book.presentation.search.SearchViewModel
 import com.bcoding.readtracker.book.presentation.shared.actions.BookSharedActions
 import com.bcoding.readtracker.core.domain.DataError
@@ -185,7 +186,7 @@ class SearchViewModelTest : KoinTest {
             bookRepository.searchBooks(
                 query = query,
                 offset = 0,
-                limit = SearchViewModel.PAGE_SIZE
+                limit = PAGE_SIZE
             )
         } returns Outcome.Success(
             SearchResult(
@@ -199,7 +200,7 @@ class SearchViewModelTest : KoinTest {
             bookRepository.searchBooks(
                 query = query,
                 offset = 10,
-                limit = SearchViewModel.PAGE_SIZE
+                limit = PAGE_SIZE
             )
         } returns Outcome.Success(
             SearchResult(
@@ -271,7 +272,7 @@ class SearchViewModelTest : KoinTest {
             bookRepository.searchBooks(
                 query = "Harry Potter",
                 offset = 0,
-                limit = SearchViewModel.PAGE_SIZE
+                limit = PAGE_SIZE
             )
         } returns Outcome.Success(
             SearchResult(
@@ -285,7 +286,7 @@ class SearchViewModelTest : KoinTest {
             bookRepository.searchBooks(
                 query = "Harry Potter",
                 offset = 10,
-                limit = SearchViewModel.PAGE_SIZE
+                limit = PAGE_SIZE
             )
         } returns Outcome.Error(
             DataError.Remote.NO_INTERNET

@@ -68,6 +68,7 @@ class BookDetailsViewModel(
                         book = action.book,
                         readingListIds = action.selectedReadingLists
                     )
+                    observeReadingListsForBook(bookId = action.book.bookId)
                 }
             }
             is BookDetailsScreenActions.OnCreateNewReadingListClick -> {

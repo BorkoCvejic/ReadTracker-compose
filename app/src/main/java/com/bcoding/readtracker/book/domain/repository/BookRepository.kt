@@ -19,6 +19,7 @@ interface BookRepository {
     suspend fun renameReadingList(readingListId: Long, newReadingListName: String)
     suspend fun deleteReadingList(readingListId: Long)
     suspend fun setBookReadingLists(book: Book, readingListIds: List<Long>)
-    fun getBooksFromReadingList(readingListId: Long): Flow<List<Book>>
+    fun getBooksFromReadingListPaginated(readingListId: Long, offset: Int, limit: Int): Flow<List<Book>>
+    fun getBookCountInReadingList(readingListId: Long): Flow<Int>
     fun getReadingListsForBook(bookId: String): Flow<List<Long>>
 }

@@ -73,14 +73,25 @@ class BookRepositoryImpl(
     override suspend fun setBookReadingLists(book: Book, readingListIds: List<Long>) =
         booksDao.setBookReadingLists(book = book, readingListIds = readingListIds)
 
-    override fun getBooksFromReadingList(readingListId: Long): Flow<List<Book>> =
+    override fun getBooksFromReadingListPaginated(
+        readingListId: Long,
+        offset: Int,
+        limit: Int,
+    ): Flow<List<Book>> =
         booksDao
-            .getReadingListWithBooks(readingListId = readingListId)
-            .map { listWithBooks ->
-                listWithBooks?.books?.map { bookEntity ->
+            .getBooksFromReadingListPaginated(
+                readingListId = readingListId,
+                offset = offset,
+                limit = limit
+            )
+            .map { bookEntities ->
+                bookEntities.map { bookEntity ->
                     bookEntity.toBook()
-                } ?: emptyList()
+                }
             }
+
+    override fun getBookCountInReadingList(readingListId: Long): Flow<Int> =
+        booksDao.getBookCountInReadingList(readingListId)
 
     override fun getReadingListsForBook(bookId: String): Flow<List<Long>> =
         booksDao

@@ -3,6 +3,7 @@ package com.bcoding.readtracker.book.presentation.search
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bcoding.readtracker.book.domain.repository.BookRepository
+import com.bcoding.readtracker.book.presentation.search.SearchState.Companion.PAGE_SIZE
 import com.bcoding.readtracker.book.presentation.shared.actions.BookSharedActions
 import com.bcoding.readtracker.book.presentation.shared.actions.UiActions
 import com.bcoding.readtracker.core.domain.onError
@@ -27,11 +28,6 @@ import kotlinx.coroutines.launch
 class SearchViewModel(
     private val bookRepository: BookRepository
 ): ViewModel() {
-
-    companion object {
-        const val PAGE_SIZE = 10
-    }
-
     private val _state = MutableStateFlow(SearchState())
     val state = _state
         .onStart {
@@ -125,7 +121,11 @@ class SearchViewModel(
         val page = if (isNewSearch) 0 else _state.value.currentPage
         val offset = page * PAGE_SIZE
 
-        bookRepository.searchBooks(query, offset, PAGE_SIZE)
+        bookRepository.searchBooks(
+            query = query,
+            offset = offset,
+            limit = PAGE_SIZE
+        )
             .onSuccess { searchResult ->
                 _state.update { currentState ->
                     val newBooks = if (isNewSearch) {

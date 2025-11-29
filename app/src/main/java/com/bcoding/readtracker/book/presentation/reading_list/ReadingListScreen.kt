@@ -9,7 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -56,6 +56,8 @@ fun ReadingListScreenRoot(
         modifier = modifier,
         readingListName = readingListName,
         savedBooks = state.savedBooks,
+        hasMore = state.hasMore,
+        isLoadingMore = state.isLoadingMore,
         onBackClick = { navigateUp() },
         onAction = readingListViewModel::onAction
     )
@@ -66,6 +68,8 @@ fun ReadingListScreen(
     modifier: Modifier,
     readingListName: String,
     savedBooks: List<Book>,
+    hasMore: Boolean,
+    isLoadingMore: Boolean,
     onBackClick: () -> Unit,
     onAction: (UiActions) -> Unit
 ) {
@@ -101,14 +105,19 @@ fun ReadingListScreen(
                 Spacer(modifier = Modifier.height(MaterialTheme.appDimensions.dimen16))
                 if (savedBooks.isNotEmpty()) {
                     LazyColumn {
-                        items(
+                        itemsIndexed(
                             items = savedBooks,
-                            key = { book -> book.bookId },
-                        ) { book ->
+                            key = { _, book -> book.bookId },
+                        ) { index, book ->
                             ReadingListItem(
                                 book = book,
                                 onAction = { action -> onAction(action) }
                             )
+
+                            // Load more at 80% shown items, PAGE_SIZE is 10
+                            if (index >= savedBooks.size - 2 && hasMore && !isLoadingMore) {
+                                onAction(ReadingListScreenActions.OnLoadMore)
+                            }
                         }
                     }
                 } else {
@@ -147,6 +156,8 @@ fun ReadingListScreenPreview(
             modifier = Modifier,
             readingListName = statePreview.readingListName,
             savedBooks = statePreview.state.savedBooks,
+            hasMore = statePreview.state.hasMore,
+            isLoadingMore = statePreview.state.isLoadingMore,
             onBackClick = {},
             onAction = {}
         )

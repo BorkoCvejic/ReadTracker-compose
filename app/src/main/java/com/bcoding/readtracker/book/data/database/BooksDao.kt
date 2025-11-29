@@ -80,6 +80,22 @@ interface BooksDao {
     @Query("SELECT bookId FROM ReadingListBookCrossRef WHERE readingListId = :readingListId")
     suspend fun getBooksInReadingList(readingListId: Long): List<String>
 
+    @Query("""
+        SELECT BookEntity.* FROM BookEntity
+        INNER JOIN ReadingListBookCrossRef ON BookEntity.bookId = ReadingListBookCrossRef.bookId
+        WHERE ReadingListBookCrossRef.readingListId = :readingListId
+        ORDER BY ReadingListBookCrossRef.addedAt ASC
+        LIMIT :limit OFFSET :offset
+    """)
+    fun getBooksFromReadingListPaginated(
+        readingListId: Long,
+        offset: Int,
+        limit: Int
+    ): Flow<List<BookEntity>>
+
+    @Query("SELECT COUNT(*) FROM ReadingListBookCrossRef WHERE readingListId = :readingListId")
+    fun getBookCountInReadingList(readingListId: Long): Flow<Int>
+
     @Transaction
     @Query("SELECT * FROM ReadingListEntity WHERE readingListId = :readingListId")
     fun getReadingListWithBooks(readingListId: Long): Flow<ReadingListWithBooks?>
