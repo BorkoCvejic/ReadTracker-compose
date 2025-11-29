@@ -22,5 +22,6 @@ import androidx.room.ForeignKey
 )
 data class ReadingListBookCrossRef(
     val readingListId: Long,
-    val bookId: String
+    val bookId: String,
+    val addedAt: Long = System.currentTimeMillis()
 )

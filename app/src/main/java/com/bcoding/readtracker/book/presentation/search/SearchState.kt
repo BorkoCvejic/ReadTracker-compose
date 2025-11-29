@@ -11,4 +11,8 @@ data class SearchState(
     val isLoadingMore: Boolean = false,
     val canLoadMore: Boolean = false,
     val currentPage: Int = 0
-)
+) {
+    companion object {
+        const val PAGE_SIZE = 10
+    }
+}
