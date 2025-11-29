@@ -33,6 +33,10 @@
 
     <!-- Shared book -->
     <string name="book_rating">Rating</string>
+    <plurals name="book_rating_votes">
+        <item quantity="one">%d vote</item>
+        <item quantity="other">%d votes</item>
+    </plurals>
 
     <!-- Add to reading list dialog -->
     <string name="add_to_reading_list_dialog_title">Add to list</string>

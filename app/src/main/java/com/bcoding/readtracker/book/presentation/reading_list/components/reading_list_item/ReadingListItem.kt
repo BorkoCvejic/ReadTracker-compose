@@ -22,6 +22,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -145,7 +146,11 @@ fun ReadingListItem(
                                 thickness = MaterialTheme.appDimensions.dividerThickness
                             )
                             Text(
-                                text = "$ratingCnt votes",
+                                text = pluralStringResource(
+                                    R.plurals.book_rating_votes,
+                                    ratingCnt,
+                                    ratingCnt
+                                ),
                                 style = MaterialTheme.typography.bodySmall
                             )
                         }

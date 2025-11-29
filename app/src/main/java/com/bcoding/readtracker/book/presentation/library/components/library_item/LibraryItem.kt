@@ -15,7 +15,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalResources
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
@@ -32,8 +32,6 @@ fun LibraryItem(
     existingReadingListNames: List<String>,
     onAction: (LibraryScreenActions) -> Unit
 ) {
-    val resources = LocalResources.current
-
     ElevatedCard(
         shape = MaterialTheme.shapes.medium,
         modifier = Modifier
@@ -79,7 +77,7 @@ fun LibraryItem(
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 Text(
-                    text = resources.getQuantityString(
+                    text = pluralStringResource(
                         R.plurals.library_screen_books_count,
                         readingList.bookCount,
                         readingList.bookCount
